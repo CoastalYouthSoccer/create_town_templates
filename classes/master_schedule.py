@@ -25,9 +25,9 @@ class MasterSchedule():
 
     def get_home_games(self, town) -> list:
         home_games = []
-
+        town = town.lower()
         for row in self.schedule:
-            if town in row['home_team'].lower():
+            if town in row[4].lower():
                 home_games.append(row)
 
         return home_games

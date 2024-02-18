@@ -5,7 +5,7 @@ from google import auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger()
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
@@ -86,8 +86,8 @@ def get_email_vars():
         'EMAIL_SERVER': 'smtp.gmail.com',
         'EMAIL_PORT': 587,
         'EMAIL_USERNAME': None,
-        'EMAIL_PASSWORD': None,
-        'EMAIL_TO': None
+        'EMAIL_EMAIL': None,
+        'EMAIL_PASSWORD': None
     }
 
     try:
@@ -110,15 +110,15 @@ def get_email_vars():
         rc = 55
 
     try:
-        env_vars['EMAIL_PASSWORD'] = environ['EMAIL_PASSWORD']
+        env_vars['EMAIL_EMAIL'] = environ['EMAIL_EMAIL']
     except KeyError:
-        logger.error('EMAIL_PASSWORD environment variable is missing')
+        logger.error('EMAIL_EMAIL environment variable is missing')
         rc = 55
 
     try:
-        env_vars['EMAIL_TO'] = environ['EMAIL_TO']
+        env_vars['EMAIL_PASSWORD'] = environ['EMAIL_PASSWORD']
     except KeyError:
-        logger.error('EMAIL_TO environment variable is missing')
+        logger.error('EMAIL_PASSWORD environment variable is missing')
         rc = 55
 
     return rc, env_vars
