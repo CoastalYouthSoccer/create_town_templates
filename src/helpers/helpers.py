@@ -1,40 +1,12 @@
 from os import environ
-import dateutil.parser
 import logging
 from google import auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger()
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
-
-# Jinja template formatters
-def format_date_mm_dd_yyyy(date_str) -> str:
-    formatted_date = None
-    try:
-        dt = dateutil.parser.parse(date_str)
-        formatted_date = dt.strftime("%m/%d/%Y")
-    except dateutil.parser.ParserError:
-        logger.error(f"Failed to parse date: {date_str}")
-    except dateutil.parser.UnknownTimezoneWarning:
-        logger.error(f"Invalid Time zone: {date_str}")
-    except Exception as e:
-        logger.error(f"Unknown error: {e}")
-    return formatted_date
-
-def format_date_hh_mm(date_str) -> str:
-    formatted_time = None
-    try:
-        dt = dateutil.parser.parse(date_str)
-        formatted_time = dt.strftime("%I:%M %p")
-    except dateutil.parser.ParserError:
-        logger.error(f"Failed to parse date: {date_str}")
-    except dateutil.parser.UnknownTimezoneWarning:
-        logger.error(f"Invalid Time zone: {date_str}")
-    except Exception as e:
-        logger.error(f"Unknown error: {e}")
-    return formatted_time
 
 def load_sheet(sheet_id, sheet_range) -> list:
     credentials, _ = auth.default()
@@ -86,8 +58,8 @@ def get_email_vars():
         'EMAIL_SERVER': 'smtp.gmail.com',
         'EMAIL_PORT': 587,
         'EMAIL_USERNAME': None,
-        'EMAIL_PASSWORD': None,
-        'EMAIL_TO': None
+        'EMAIL_EMAIL': None,
+        'EMAIL_PASSWORD': None
     }
 
     try:
@@ -110,15 +82,15 @@ def get_email_vars():
         rc = 55
 
     try:
-        env_vars['EMAIL_PASSWORD'] = environ['EMAIL_PASSWORD']
+        env_vars['EMAIL_EMAIL'] = environ['EMAIL_EMAIL']
     except KeyError:
-        logger.error('EMAIL_PASSWORD environment variable is missing')
+        logger.error('EMAIL_EMAIL environment variable is missing')
         rc = 55
 
     try:
-        env_vars['EMAIL_TO'] = environ['EMAIL_TO']
+        env_vars['EMAIL_PASSWORD'] = environ['EMAIL_PASSWORD']
     except KeyError:
-        logger.error('EMAIL_TO environment variable is missing')
+        logger.error('EMAIL_PASSWORD environment variable is missing')
         rc = 55
 
     return rc, env_vars

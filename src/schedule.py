@@ -68,7 +68,7 @@ def main():
 
     email_client = EMailClient(
         email_vars['EMAIL_SERVER'], email_vars['EMAIL_PORT'],
-        email_vars['EMAIL_USERNAME'], 'Game Report',
+        email_vars['EMAIL_EMAIL'], email_vars['EMAIL_USERNAME'],
         email_vars['EMAIL_PASSWORD'])
 
 
