@@ -5,7 +5,6 @@ from email.message import EmailMessage
 from email.headerregistry import Address
 import smtplib, ssl
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound
-from helpers.helpers import format_date_mm_dd_yyyy, format_date_hh_mm
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +18,7 @@ def get_email_components(email):
     start_index = email.find('<') + 1
     end_index = email.find('>')
     if start_index == 0 or end_index == -1:
-        logger.error(f"Could not determine name for {email}.")
+        logger.error(f"Could not determine name for {email}")
 # No point continuing, as the address is not in the correct format.
         return email_components
 
@@ -30,9 +29,9 @@ def get_email_components(email):
         if '.' in components[1]:
             email_components['domain'] = components[1]
         else:
-            logger.error(f"Invalid email address: {email}.")
+            logger.error(f"Invalid domain name: {email}")
     else:
-        logger.error(f"Invalid email address: {email}.")
+        logger.error(f"Invalid email address: {email}")
 
     return email_components
 
@@ -55,8 +54,7 @@ class EMailClient():
         jinja_env = Environment(
             autoescape=True,
             loader=FileSystemLoader(self.template_dir))
-        jinja_env.filters['format_mm_dd_yyyy'] = format_date_mm_dd_yyyy
-        jinja_env.filters['format_hh_mm'] = format_date_hh_mm
+
         try:
             template = jinja_env.get_template(template_name)
             message = template.render(content)
