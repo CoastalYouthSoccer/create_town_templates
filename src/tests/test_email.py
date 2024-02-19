@@ -1,3 +1,4 @@
+from os import path
 from unittest import TestCase, main as test_main
 from helpers.email import EMailClient, get_email_components
 
@@ -77,10 +78,16 @@ class TestEmailClient(TestCase):
             CONST_EMAIL_EMAIL, CONST_EMAIL_NAME,
             CONST_EMAIL_PASSWORD)
 
+        file_name = "send_file.csv"
+        full_file_name = path.join(path.dirname(path.realpath(__file__)),
+                                   file_name)
+
         with self.assertLogs(level='DEBUG') as cm:
             message = email_client.create_email(CONST_DATA_MESSAGE,
                                                 CONST_TEMPLATE_HTML,
-                                                addresses, True)
+                                                addresses,
+                                                full_file_name,
+                                                file_name, True)
         self.assertEqual(cm.output, [
             "DEBUG:helpers.email:Starting create email ...",
             CONST_START_MESSAGE,
@@ -95,9 +102,8 @@ class TestEmailClient(TestCase):
             'user one <user.one@example.org>, user two <user.two@example.org>')
         self.assertEqual(message._headers[2][0], 'Subject')
         self.assertEqual(message._headers[2][1], CONST_SUBJECT)
-        self.assertEqual(message._headers[3][0], 'Content-Type')
-        self.assertEqual(message._headers[3][1],
-            'text/html; charset="utf-8"')
+        self.assertEqual(message._headers[3][0], 'MIME-Version')
+        self.assertEqual(message._headers[3][1], '1.0')
 
     def test_create_message_html(self):
         expected_msg = 'Homer Simpson,\n\n' \
@@ -122,6 +128,8 @@ class TestEmailClient(TestCase):
         message = email_client.create_message(CONST_DATA_MESSAGE['content'],
                                                 CONST_TEMPLATE_HTML)
         self.assertEqual(message, expected_msg)
+
+
 
 class TestEmailComponents(TestCase):
     def test_get_email_components_success(self):

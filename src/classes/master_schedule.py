@@ -45,18 +45,18 @@ class MasterSchedule():
             writer.writeheader()
             for row in self.get_home_games(town):
                 writer.writerow({
-                    'date': row['date'],
+                    'date': row[3],
                     'start_time': '',
                     'venue': '',
                     'sub_venue': '',
-                    'home_team': row['home_team'],
-                    'away_team': row['away_team'],
+                    'home_team': row[4],
+                    'away_team': row[5],
                     'league': town_title,
-                    'age_group': row['grade'],
-                    'gender': row['gender'],
+                    'age_group': row[1],
+                    'gender': row[2],
                     'type': 'Coastal',
                     'pattern': 'Three Officials',
                     'assignor': assignor,
-                    'notes': row['division']
+                    'notes': row[0]
                 })
         return file_name

@@ -91,6 +91,34 @@ class TestMasterSchedule(TestCase):
         results = schedule.get_home_games('Carver')
         self.assertEqual(expected_results, results)
 
+    @patch('helpers.helpers.auth.default')
+    @patch('helpers.helpers.build')
+    def test_write_schedule(self, mock_build, mock_auth_default):
+        # Mock the necessary objects
+        mock_credentials = MagicMock()
+        mock_auth_default.return_value = (mock_credentials, None)
+        mock_sheet_values = [
+            ['Division', 'Grade', 'Gender', 'Date', 'Home Team', 'Away Team'],
+            [DIVISION1, GRADE34, BOYS, APRIL06, HANOVER1, COHASSET1],
+            [DIVISION1, GRADE34, BOYS, APRIL06, 'Hanover-2', HINGHAM1],
+            [DIVISION1, GRADE34, BOYS, APRIL13, CARVER3, COHASSET2],
+            [DIVISION1, GRADE34, BOYS, APRIL13, HINGHAM1, CARVER1],
+            [DIVISION1, GRADE34, BOYS, APRIL20, CARVER2, COHASSET1],
+            [DIVISION1, GRADE34, BOYS, APRIL20, CARVER1, CARVER3],
+            [DIVISION1, GRADE34, GIRLS, APRIL06, CARVER1, COHASSET1],
+            [DIVISION1, GRADE34, GIRLS, APRIL06, CARVER2, HINGHAM1],
+            [DIVISION1, GRADE34, GIRLS, APRIL13, CARVER3, COHASSET2],
+            [DIVISION1, GRADE34, GIRLS, APRIL13, HINGHAM1, CARVER1],
+        ]
+        mock_execute_result = {'values': mock_sheet_values}
+        mock_sheet_service = MagicMock()
+        mock_sheet_service.values().get().execute.return_value = mock_execute_result
+        mock_build.return_value.spreadsheets.return_value = mock_sheet_service
+
+        schedule = MasterSchedule('validid', 'A:G')
+        schedule.read_schedule()
+        file_name = schedule.write_schedule('carver.csv', 'Carver', 'Homer')
+        self.assertEqual(file_name, 'carver.csv')
 
 if __name__ == '__main__':
     test_main()
