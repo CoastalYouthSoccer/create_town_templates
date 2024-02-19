@@ -19,7 +19,7 @@ class TestSchedule(TestCase):
 
     def test_no_file_name(self):
         rc, args = get_arguments(['-f'])
-        self.assertEqual(rc, 88)
+        self.assertEqual(rc, 77)
         self.assertEqual(args, {'file_name': None})
 
 
