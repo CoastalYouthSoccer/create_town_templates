@@ -9,6 +9,11 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 logger = logging.getLogger(__name__)
 
+def split_age_group_gender(item):
+    gender = item.split(' ')[-1]
+    age_group = item.replace(gender, '').strip()
+    return age_group, gender
+
 
 class MasterSchedule():
     def __init__(self, id, sheet_range) -> None:
@@ -23,18 +28,19 @@ class MasterSchedule():
     def read_schedule(self) -> None:
         self.schedule = load_sheet(self.id, self.sheet_range)
 
+# expected format:
+# 'age group', 'bracket(division)', 'date', 'home town', 'home team #', 'away team', 'away team #'
     def get_home_games(self, town) -> list:
         home_games = []
         town = town.lower()
         for row in self.schedule:
-            if town in row[4].lower():
+            if town in row[3].lower() and row[5].lower() != 'bye':
                 home_games.append(row)
 
         return home_games
 
     def write_schedule(self, file_name, town, assignor) -> str:
         town = town.lower()
-        town_title = town.title()
 
         with open(file_name, 'w', newline='') as csv_file:
             field_names = ['date', 'start_time', 'venue', 'sub_venue', 'home_team',
@@ -44,19 +50,20 @@ class MasterSchedule():
 
             writer.writeheader()
             for row in self.get_home_games(town):
+                age_group, gender = split_age_group_gender(row[0])
                 writer.writerow({
-                    'date': row[3],
+                    'date': row[2],
                     'start_time': '',
                     'venue': '',
                     'sub_venue': '',
-                    'home_team': row[4],
-                    'away_team': row[5],
-                    'league': town_title,
-                    'age_group': row[1],
-                    'gender': row[2],
+                    'home_team': f'{row[3]}-{row[4]}',
+                    'away_team': f'{row[5]}-{row[6]}',
+                    'league': town.title(),
+                    'age_group': age_group,
+                    'gender': gender,
                     'type': 'Coastal',
                     'pattern': 'Three Officials',
                     'assignor': assignor,
-                    'notes': row[0]
+                    'notes': row[1]
                 })
         return file_name

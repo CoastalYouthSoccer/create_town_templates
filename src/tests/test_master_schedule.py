@@ -2,20 +2,28 @@ from unittest import (TestCase, main as test_main)
 from unittest.mock import (patch, MagicMock)
 from classes.master_schedule import MasterSchedule
 
+GRADE34_BOYS = "Grade 3/4 Boys"
 GRADE34 = "Grade 3/4"
 BOYS = "Boys"
 GIRLS = "Girls"
+GRADE34_GIRLS = "Grade 3/4 Girls"
 DIVISION1= "Division1"
 APRIL06 = "04/06/2024"
 APRIL13 = "04/13/2024"
 APRIL20 = "04/20/2024"
+CARVER = "Carver"
 CARVER1 = "Carver-1"
 CARVER2 = "Carver-2"
 CARVER3 = "Carver-3"
+COHASSET = "Cohasset"
 COHASSET1 = "Cohasset-1"
 COHASSET2 = "Cohasset-2"
-HANOVER1 = "Hanover-1"
+HANOVER = "Hanover"
+HINGHAM = "Hingham"
 HINGHAM1 = "Hingham-1"
+HOME_TEAM = "Home Team"
+AWAY_TEAM = "Away Team"
+
 
 class TestMasterSchedule(TestCase):
     def test_init(self):
@@ -32,17 +40,17 @@ class TestMasterSchedule(TestCase):
         mock_credentials = MagicMock()
         mock_auth_default.return_value = (mock_credentials, None)
         mock_sheet_values = [
-            ['Division', 'Grade', 'Gender', 'Date', 'Home Team', 'Away Team'],
-            [DIVISION1, GRADE34, BOYS, APRIL06, HANOVER1, COHASSET1],
-            [DIVISION1, GRADE34, BOYS, APRIL06, 'Hanover-2', HINGHAM1],
-            [DIVISION1, GRADE34, BOYS, APRIL13, CARVER3, COHASSET2],
-            [DIVISION1, GRADE34, BOYS, APRIL13, HINGHAM1, CARVER1],
-            [DIVISION1, GRADE34, BOYS, APRIL20, CARVER2, COHASSET1],
-            [DIVISION1, GRADE34, BOYS, APRIL20, CARVER1, CARVER3],
-            [DIVISION1, GRADE34, GIRLS, APRIL06, CARVER1, COHASSET1],
-            [DIVISION1, GRADE34, GIRLS, APRIL06, CARVER2, HINGHAM1],
-            [DIVISION1, GRADE34, GIRLS, APRIL13, CARVER3, COHASSET2],
-            [DIVISION1, GRADE34, GIRLS, APRIL13, HINGHAM1, CARVER1],
+            ['Grade', 'Division', 'Date', HOME_TEAM, 'Home #', AWAY_TEAM, 'Away #'],
+            [GRADE34_BOYS, DIVISION1, APRIL06, HANOVER, 1, COHASSET, 1],
+            [GRADE34_BOYS, DIVISION1, APRIL06, HANOVER, 2, HINGHAM, 1],
+            [GRADE34_BOYS, DIVISION1, APRIL13, CARVER, 3, COHASSET, 2],
+            [GRADE34_BOYS, DIVISION1, APRIL13, HINGHAM, 1, CARVER, 1],
+            [GRADE34_BOYS, DIVISION1, APRIL20, CARVER, 2, COHASSET, 1],
+            [GRADE34_BOYS, DIVISION1, APRIL20, CARVER, 1, CARVER, 3],
+            [GRADE34_GIRLS, DIVISION1, APRIL06, CARVER, 1, COHASSET, 1],
+            [GRADE34_GIRLS, DIVISION1, APRIL06, CARVER, 2, HINGHAM, 1],
+            [GRADE34_GIRLS, DIVISION1, APRIL13, CARVER, 3, COHASSET, 2],
+            [GRADE34_GIRLS, DIVISION1, APRIL13, HINGHAM, 1, CARVER, 1],
         ]
         mock_execute_result = {'values': mock_sheet_values}
         mock_sheet_service = MagicMock()
@@ -60,17 +68,17 @@ class TestMasterSchedule(TestCase):
         mock_credentials = MagicMock()
         mock_auth_default.return_value = (mock_credentials, None)
         mock_sheet_values = [
-            ['Division', 'Grade', 'Gender', 'Date', 'Home Team', 'Away Team'],
-            [DIVISION1, GRADE34, BOYS, APRIL06, HANOVER1, COHASSET1],
-            [DIVISION1, GRADE34, BOYS, APRIL06, 'Hanover-2', HINGHAM1],
-            [DIVISION1, GRADE34, BOYS, APRIL13, CARVER3, COHASSET2],
-            [DIVISION1, GRADE34, BOYS, APRIL13, HINGHAM1, CARVER1],
-            [DIVISION1, GRADE34, BOYS, APRIL20, CARVER2, COHASSET1],
-            [DIVISION1, GRADE34, BOYS, APRIL20, CARVER1, CARVER3],
-            [DIVISION1, GRADE34, GIRLS, APRIL06, CARVER1, COHASSET1],
-            [DIVISION1, GRADE34, GIRLS, APRIL06, CARVER2, HINGHAM1],
-            [DIVISION1, GRADE34, GIRLS, APRIL13, CARVER3, COHASSET2],
-            [DIVISION1, GRADE34, GIRLS, APRIL13, HINGHAM1, CARVER1]
+            ['Grade', 'Division', 'Date', HOME_TEAM, 'Home #', AWAY_TEAM, 'Away #'],
+            [GRADE34_BOYS, DIVISION1, APRIL06, HANOVER, 1, COHASSET, 1],
+            [GRADE34_BOYS, DIVISION1, APRIL06, HANOVER, 2, HINGHAM, 1],
+            [GRADE34_BOYS, DIVISION1, APRIL13, CARVER, 3, COHASSET, 1],
+            [GRADE34_BOYS, DIVISION1, APRIL13, HINGHAM, 1, CARVER, 1],
+            [GRADE34_BOYS, DIVISION1, APRIL20, CARVER, 2, COHASSET, 1],
+            [GRADE34_BOYS, DIVISION1, APRIL20, CARVER, 1, CARVER, 3],
+            [GRADE34_GIRLS, DIVISION1, APRIL06, CARVER, 1, COHASSET, 1],
+            [GRADE34_GIRLS, DIVISION1, APRIL06, CARVER, 2, HINGHAM, 1],
+            [GRADE34_GIRLS, DIVISION1, APRIL13, CARVER, 3, COHASSET, 2],
+            [GRADE34_GIRLS, DIVISION1, APRIL13, HINGHAM, 1, CARVER, 1]
         ]
         mock_execute_result = {'values': mock_sheet_values}
         mock_sheet_service = MagicMock()
@@ -78,12 +86,12 @@ class TestMasterSchedule(TestCase):
         mock_build.return_value.spreadsheets.return_value = mock_sheet_service
 
         expected_results = [
-            [DIVISION1, GRADE34, BOYS, APRIL13, CARVER3, COHASSET2],
-            [DIVISION1, GRADE34, BOYS, APRIL20, CARVER2, COHASSET1],
-            [DIVISION1, GRADE34, BOYS, APRIL20, CARVER1, CARVER3],
-            [DIVISION1, GRADE34, GIRLS, APRIL06, CARVER1, COHASSET1],
-            [DIVISION1, GRADE34, GIRLS, APRIL06, CARVER2, HINGHAM1],
-            [DIVISION1, GRADE34, GIRLS, APRIL13, CARVER3, COHASSET2]
+            [GRADE34_BOYS, DIVISION1, APRIL13, CARVER, 3, COHASSET, 1],
+            [GRADE34_BOYS, DIVISION1, APRIL20, CARVER, 2, COHASSET, 1],
+            [GRADE34_BOYS, DIVISION1, APRIL20, CARVER, 1, CARVER, 3],
+            [GRADE34_GIRLS, DIVISION1, APRIL06, CARVER, 1, COHASSET, 1],
+            [GRADE34_GIRLS, DIVISION1, APRIL06, CARVER, 2, HINGHAM, 1],
+            [GRADE34_GIRLS, DIVISION1, APRIL13, CARVER, 3, COHASSET, 2]
         ]
 
         schedule = MasterSchedule('validid', 'A:G')
@@ -99,7 +107,7 @@ class TestMasterSchedule(TestCase):
         mock_auth_default.return_value = (mock_credentials, None)
         mock_sheet_values = [
             ['Division', 'Grade', 'Gender', 'Date', 'Home Team', 'Away Team'],
-            [DIVISION1, GRADE34, BOYS, APRIL06, HANOVER1, COHASSET1],
+            [DIVISION1, GRADE34, BOYS, APRIL06, 'Hanover-1', COHASSET1],
             [DIVISION1, GRADE34, BOYS, APRIL06, 'Hanover-2', HINGHAM1],
             [DIVISION1, GRADE34, BOYS, APRIL13, CARVER3, COHASSET2],
             [DIVISION1, GRADE34, BOYS, APRIL13, HINGHAM1, CARVER1],
