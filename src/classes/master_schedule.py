@@ -27,7 +27,8 @@ class MasterSchedule():
         home_games = []
         town = town.lower()
         for row in self.schedule:
-            if town in row[4].lower():
+            if town in row[3].lower() and 'bye' not in row[5].lower() and \
+                'bye' not in row[3].lower() and 'no game' not in row[5].lower():
                 home_games.append(row)
 
         return home_games
@@ -49,11 +50,11 @@ class MasterSchedule():
                     'start_time': '',
                     'venue': '',
                     'sub_venue': '',
-                    'home_team': row[4],
-                    'away_team': row[5],
-                    'league': town_title,
                     'age_group': row[1],
                     'gender': row[2],
+                    'home_team': f'{row[3].strip()}-{row[4].strip()}',
+                    'away_team': f'{row[5].strip()}-{row[6].strip()}',
+                    'league': town.title(),
                     'type': 'Coastal',
                     'pattern': 'Three Officials',
                     'assignor': assignor,
