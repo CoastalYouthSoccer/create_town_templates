@@ -35,7 +35,6 @@ class MasterSchedule():
 
     def write_schedule(self, file_name, town, assignor) -> str:
         town = town.lower()
-        town_title = town.title()
 
         with open(file_name, 'w', newline='') as csv_file:
             field_names = ['date', 'start_time', 'venue', 'sub_venue', 'home_team',

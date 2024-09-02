@@ -57,10 +57,9 @@ def main():
     with open(args['file_name']) as assignor_file:
         assignor_list = json.load(assignor_file)
 
-
-#    rc, spreadsheet_vars = get_spreadsheet_vars()
-#    if rc:
-#        exit(rc)
+    rc, spreadsheet_vars = get_spreadsheet_vars()
+    if rc:
+        exit(rc)
 
     rc, email_vars = get_email_vars()
     if rc:
@@ -71,13 +70,12 @@ def main():
         email_vars['EMAIL_EMAIL'], email_vars['EMAIL_USERNAME'],
         email_vars['EMAIL_PASSWORD'])
 
-
-
-#    master_schedule = MasterSchedule(spreadsheet_vars['SPREADSHEET_ID'],
-#                                    spreadsheet_vars['SPREADSHEET_RANGE'])
-#    master_schedule.read_schedule
+    master_schedule = MasterSchedule(spreadsheet_vars['SPREADSHEET_ID'],
+                                    spreadsheet_vars['SPREADSHEET_RANGE'])
+    master_schedule.read_schedule()
 
     for town in assignor_list.keys():
+        logger.info(f"Processing: {town} Schedule")
         content = {
             "subject": f"Home Game Schedule for {town}",
             "content": {
@@ -89,8 +87,8 @@ def main():
         assignor = f"{assignor_list[town]['first_name']}" \
             f" {assignor_list[town]['last_name']}"
         assignor_email = f"<{assignor}>{assignor_list[town]['email']}"
-#        town_file = master_schedule.write_schedule(file_name, town,
-#                                                   assignor)
+        _ = master_schedule.write_schedule(file_name, town,
+                                            assignor)
         email_client.send_email(content, "email.html.jinja",
                                  assignor_email, file_name,
                                  f"{town}.csv", True)
