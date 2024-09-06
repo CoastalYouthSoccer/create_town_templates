@@ -1,5 +1,7 @@
 google-api-python-client==2.109.0
+gspread==6.1.2
 load-dotenv==0.1.0
+pandas==2.2.2
 python-dateutil~=2.8.2
 requests~=2.31.0
 Jinja2~=3.1.3

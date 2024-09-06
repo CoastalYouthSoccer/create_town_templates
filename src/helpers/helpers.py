@@ -1,13 +1,33 @@
 from os import environ
 import logging
+import gspread
 from google import auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from googleapiclient.http import MediaIoBaseDownload
+import io
+import pandas as pd
 
 logger = logging.getLogger()
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
+def split_grade_and_gender(text):
+    try:
+        split_values = text.rsplit(' ', 1)
+        
+        if len(split_values) != 2:
+            raise ValueError("String does not have the expected format")
+        
+        grade = split_values[0]
+        gender = split_values[1]
+        
+        return grade, gender
+
+    except Exception as e:
+        print(f"An error occurred: {e} splitting {text}")
+        return None, None
+    
 def load_sheet(sheet_id, sheet_range) -> list:
     credentials, _ = auth.default()
     sheet_values = []
@@ -18,6 +38,37 @@ def load_sheet(sheet_id, sheet_range) -> list:
         result = sheet.values().get(
             spreadsheetId=sheet_id, range=sheet_range).execute()
         sheet_values = result.get('values', [])
+        logger.info(f"{len(sheet_values)} rows retrieved")
+    except HttpError as error:
+        logger.error(f"An error occurred: {error}")
+    
+    return sheet_values
+
+def load_excel_sheet(sheet_id, sheet_range) -> list:
+    sheet_name = sheet_range.split('!')[0]
+    credentials, _ = auth.default()
+    sheet_values = []
+
+    try:
+        _ = gspread.authorize(credentials)
+        service = build('drive', 'v3', credentials=credentials)
+        request = service.files().get_media(fileId=sheet_id)
+
+        fh = io.BytesIO()
+        downloader = MediaIoBaseDownload(fh, request)
+        done = False
+        while done is False:
+            _, done = downloader.next_chunk()
+
+        fh.seek(0)
+
+        df = pd.read_excel(fh, sheet_name=sheet_name)
+        df["HOME#"] = df["HOME#"].astype('string')
+        df["AWAY#"] = df["AWAY#"].astype('string')
+        df["DATE"] = df["DATE"].astype('string')
+
+        sheet_values = df.values.tolist()
+
         logger.info(f"{len(sheet_values)} rows retrieved")
     except HttpError as error:
         logger.error(f"An error occurred: {error}")

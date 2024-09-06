@@ -1,7 +1,7 @@
 from unittest import TestCase, main as test_main
 from schedule import get_arguments
 
-USAGE='USAGE: schedule.py -f <assignor file>' 
+USAGE='USAGE: schedule.py -f <assignor file> -e <Excel format flag (True/False)>' 
 
 
 class TestSchedule(TestCase):
@@ -15,12 +15,17 @@ class TestSchedule(TestCase):
     def test_valid_options(self):
         rc, args = get_arguments(['-f', 'fileName.csv'])
         self.assertEqual(rc, 0)
-        self.assertEqual(args, {'file_name': 'fileName.csv'})
+        self.assertEqual(args, {'file_name': 'fileName.csv', 'excel_format': False})
 
     def test_no_file_name(self):
         rc, args = get_arguments(['-f'])
         self.assertEqual(rc, 77)
         self.assertEqual(args, {'file_name': None})
+
+    def test_invalid_excel_format(self):
+        rc, args = get_arguments(['-f', 'fileName.csv', '-e', 'NotValid'])
+        self.assertEqual(rc, 77)
+        self.assertEqual(args, {'file_name': None})        
 
 
 if __name__ == '__main__':

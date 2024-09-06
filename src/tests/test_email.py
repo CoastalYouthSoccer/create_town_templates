@@ -1,4 +1,4 @@
-from os import path
+from os import path, getcwd
 from unittest import TestCase, main as test_main
 from helpers.email import EMailClient, get_email_components
 
@@ -106,19 +106,8 @@ class TestEmailClient(TestCase):
         self.assertEqual(message._headers[3][1], '1.0')
 
     def test_create_message_html(self):
-        expected_msg = 'Homer Simpson,\n\n' \
-            '<p>Attached is Springfield\'s home schedule for the ' \
-            'Spring 2024 season.</p>\n\n' \
-            '<h2>Steps to complete:</h2>\n\n<p>Update the file ' \
-            'with game time, venue, and sub-venue information.</p>\n' \
-            '<p>Save the file</p>\n' \
-            '<p>Go to Assignr\'s upload page, ' \
-            'https://cysl.assignr.com/import_files/new?import_type=G</p>\n' \
-            '<p>Upload the file</p>\n<p>&nbsp;&nbsp;&nbsp;Click ' \
-            '"Choose File" button, select the file</p>\n' \
-            '<p>&nbsp;&nbsp;&nbsp;Click "Upload File" button</p>\n\n\n' \
-            '<p>Detail Information on uploading games, ' \
-            'https://support.assignr.com/en/articles/8526473-how-to-import-games-in-bulk</p>\n'
+        with open('src/tests/files/expected_email.txt', 'r') as file:
+            expected_msg = file.readline()
 
         email_client = EMailClient(
             CONST_EMAIL_SERVER, CONST_EMAIL_PORT,

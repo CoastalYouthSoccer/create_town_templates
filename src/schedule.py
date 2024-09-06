@@ -21,15 +21,16 @@ BASE_DIR = path.dirname(path.realpath(__file__))
 
 def get_arguments(args):
     arguments = {
-        'file_name': None
+        'file_name': None,
+        'excel_format': False
     }
 
     rc = 0
-    USAGE='USAGE: schedule.py -f <assignor file>' 
+    USAGE='USAGE: schedule.py -f <assignor file> -e <Excel format flag (True/False)>' 
 
     try:
-        opts, args = getopt(args,"hf:",
-                            ["file-name="])
+        opts, args = getopt(args,"hf:e:",
+                            ["file-name=", "excel-format"])
     except GetoptError:
         logger.error(USAGE)
         return 77, arguments
@@ -40,11 +41,19 @@ def get_arguments(args):
             return 99, arguments
         elif opt in ("-f", "--file-name"):
             arguments['file_name'] = arg
-
+        elif opt in ("-e", "--excel-format"):
+            arguments['excel_format'] = arg
 
     if arguments['file_name'] is None:
         logger.error(USAGE)
         return 88
+
+    if 'excel_format' in arguments and arguments['excel_format'] is not None:
+        try:
+            arguments['excel_format'] = bool(arguments['excel_format'])
+        except ValueError:
+            logger.error(USAGE)
+            return 88
 
     return rc, arguments
 
@@ -72,7 +81,7 @@ def main():
 
     master_schedule = MasterSchedule(spreadsheet_vars['SPREADSHEET_ID'],
                                     spreadsheet_vars['SPREADSHEET_RANGE'])
-    master_schedule.read_schedule()
+    master_schedule.read_schedule(args['excel_format'])
 
     for town in assignor_list.keys():
         logger.info(f"Processing: {town} Schedule")
