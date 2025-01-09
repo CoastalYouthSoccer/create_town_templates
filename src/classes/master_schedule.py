@@ -42,7 +42,7 @@ class MasterSchedule():
         with open(file_name, 'w', newline='') as csv_file:
             field_names = ['Date', 'Start Time', 'Venue', 'Sub-Venue', 'Home Team',
                           'Away Team', 'League', 'Age Group', 'Gender', 'Type',
-                          'Pattern', 'Assignor Name', 'Notes (Visible to All)']
+                          'Pattern', 'Assignor Name', 'Game Id', 'Notes (Visible to All)']
             writer = csv.DictWriter(csv_file, fieldnames=field_names)
 
             writer.writeheader()
@@ -61,6 +61,7 @@ class MasterSchedule():
                     'Type': 'Coastal',
                     'Pattern': 'Three Officials',
                     'Assignor Name': assignor,
+                    'Game Id': 'game id',
                     'Notes (Visible to All)': row[1]
                 })
         return file_name

@@ -50,7 +50,9 @@ def get_arguments(args):
 
     if 'excel_format' in arguments and arguments['excel_format'] is not None:
         try:
-            arguments['excel_format'] = bool(arguments['excel_format'])
+            arguments['excel_format'] = True \
+                if arguments['excel_format'].lower() in ('yes', 'true', 't', '1') \
+                    else False
         except ValueError:
             logger.error(USAGE)
             return 88
