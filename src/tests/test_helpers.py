@@ -4,11 +4,18 @@ from os import environ
 from os.path import (join, dirname)
 from googleapiclient.errors import HttpError
 from helpers.helpers import (load_sheet, get_email_vars,
-                             get_spreadsheet_vars)
+                             get_spreadsheet_vars, extract_team_name,
+                             split_grade_gender_division)
 
 CONST_EMAIL_EMAIL = "email_email"
 CONST_EMAIL_USERNAME = "email_username"
 CONST_EMAIL_PASSWORD = "email_password"
+CONST_TEAM_NAME = "Team-1"
+EMPTY_GENDER_GRADE_DIVISION = {
+    "gender": None,
+    "grade": None,
+    "division": None
+}
 
 class TestGetEnvironment(TestCase):
     @patch.dict(environ,{
@@ -177,6 +184,68 @@ class TestEMailVars(TestCase):
                           'ERROR:root:EMAIL_PASSWORD environment variable is missing'])
         self.assertEqual(result, expected_results)
 
+
+class TestMisc(TestCase):
+    def test_split_grade_gender_division_valid(self):
+        expected_result = {
+            "gender": "Girls",
+            "grade": "Grade 7/8",
+            "division": "D1"
+        }
+        result = split_grade_gender_division('Girls 7/8 D1')
+        self.assertDictEqual(result, expected_result)
+
+    def test_division_exception(self):
+        with self.assertLogs(level='DEBUG') as cm:
+            result = split_grade_gender_division('Girls 7/8')
+        self.assertEqual(result, EMPTY_GENDER_GRADE_DIVISION)
+        self.assertEqual(cm.output, [
+            "WARNING:root:'Girls 7/8' does not have the expected format"
+        ]) 
+
+    def test_gender_exception(self):
+        with self.assertLogs(level='DEBUG') as cm:
+            result = split_grade_gender_division('Girs 7/8 D1')
+        self.assertEqual(result, EMPTY_GENDER_GRADE_DIVISION)
+        self.assertEqual(cm.output, [
+            "WARNING:root:'Girs 7/8 D1', Gender is Invalid"
+        ]) 
+
+    def test_grade_exception(self):
+        with self.assertLogs(level='DEBUG') as cm:
+            result = split_grade_gender_division('Girls H7/8 D1')
+        self.assertEqual(result, EMPTY_GENDER_GRADE_DIVISION)
+        self.assertEqual(cm.output, [
+            "WARNING:root:'Girls H7/8 D1', Grade Level is Invalid"
+        ]) 
+
+    def test_extract_team_name_simple(self):
+        result = extract_team_name(CONST_TEAM_NAME)
+        self.assertEqual(result, CONST_TEAM_NAME)
+
+    def test_extract_team_name_no_leading(self):
+        result = extract_team_name('Team-1')
+        self.assertEqual(result, CONST_TEAM_NAME)
+
+    def test_extract_team_name_complicated(self):
+        result = extract_team_name('Team-01 (Homer/Marge/Bart/Lis')
+        self.assertEqual(result, CONST_TEAM_NAME)
+
+    def test_extract_team_name_no_dash(self):
+        with self.assertLogs(level='DEBUG') as cm:
+            result = extract_team_name('Team01')
+        self.assertEqual(result, 'Team01')
+        self.assertEqual(cm.output, [
+            "WARNING:root:'Team01' is an invalid team name"
+        ]) 
+
+    def test_extract_team_name_none(self):
+        with self.assertLogs(level='DEBUG') as cm:
+            result = extract_team_name('')
+        self.assertEqual(result, '')
+        self.assertEqual(cm.output, [
+            "WARNING:root:'' is an invalid team name"
+        ]) 
 
 if __name__ == '__main__':
     test_main()

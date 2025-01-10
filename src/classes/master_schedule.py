@@ -3,7 +3,8 @@ import csv
 from google import auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from helpers.helpers import load_sheet
+from helpers.helpers import (load_sheet, load_excel_sheet, extract_team_name,
+                            split_grade_gender_division)
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
@@ -20,43 +21,50 @@ class MasterSchedule():
 
 # Read the sheet row-by-row.
 #   Ignore the header 
-    def read_schedule(self) -> None:
-        self.schedule = load_sheet(self.id, self.sheet_range)
+    def read_schedule(self, excel_format=False) -> None:
+        if excel_format:
+            self.schedule = load_excel_sheet(self.id, self.sheet_range)
+        else:
+            self.schedule = load_sheet(self.id, self.sheet_range)
 
     def get_home_games(self, town) -> list:
         home_games = []
         town = town.lower()
         for row in self.schedule:
-            if town in row[4].lower():
+            if town in row[6].lower():
                 home_games.append(row)
 
         return home_games
 
     def write_schedule(self, file_name, town, assignor) -> str:
         town = town.lower()
-        town_title = town.title()
 
         with open(file_name, 'w', newline='') as csv_file:
-            field_names = ['date', 'start_time', 'venue', 'sub_venue', 'home_team',
-                          'away_team', 'league', 'age_group', 'gender', 'type',
-                          'pattern', 'assignor', 'notes']
+            field_names = [
+                'Game ID', 'Date', 'Start Time', 'Venue', 'Sub-Venue',
+                'Home Team', 'Away Team', 'League', 'Age Group',
+                'Gender', 'Type', 'Pattern', 'Assignor Name',
+                'Notes (Visible to All)'
+            ]
             writer = csv.DictWriter(csv_file, fieldnames=field_names)
 
             writer.writeheader()
             for row in self.get_home_games(town):
+                game_info = split_grade_gender_division(row[8])
                 writer.writerow({
-                    'date': row[3],
-                    'start_time': '',
-                    'venue': '',
-                    'sub_venue': '',
-                    'home_team': row[4],
-                    'away_team': row[5],
-                    'league': town_title,
-                    'age_group': row[1],
-                    'gender': row[2],
-                    'type': 'Coastal',
-                    'pattern': 'Three Officials',
-                    'assignor': assignor,
-                    'notes': row[0]
+                    'Game ID': row[0],
+                    'Date': row[1],
+                    'Start Time': '',
+                    'Venue': '',
+                    'Sub-Venue': '',
+                    'Age Group': game_info['grade'],
+                    'Gender': game_info['gender'],
+                    'Home Team': extract_team_name(row[6]),
+                    'Away Team': extract_team_name(row[4]),
+                    'League': town.title(),
+                    'Type': 'Coastal',
+                    'Pattern': 'Three Officials',
+                    'Assignor Name': assignor,
+                    'Notes (Visible to All)': game_info['division']
                 })
         return file_name
