@@ -51,7 +51,6 @@ jobs:
     - name: Generate reports and fix code coverage paths for Sonarcloud
       run: |
         coverage xml -o coverage.xml
-        sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
   
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
