@@ -12,6 +12,7 @@ on:
   pull_request:
     paths:
       - 'src/**'
+      - '.github/workflows/build.yml'
     branches:
       - '**'
       - '!releases/**'
@@ -52,6 +53,8 @@ jobs:
       run: |
         coverage xml -o coverage.xml
         sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
+        pwd
+        ls -l
 
     - name: SonarCloud Scan
       uses: SonarSource/sonarqube-scan-action@v4.2.1
