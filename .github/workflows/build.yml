@@ -44,19 +44,15 @@ jobs:
         pip install -r requirements.txt
         pip install -r tests/requirements.txt
 
-    - name: Test with pytest
-      run: |
-        coverage run -m pytest --junitxml=coverage.xml || true
+    - name: Run tox
+      run: tox -e py
 
     - name: Generate reports and fix code coverage paths for Sonarcloud
       run: |
         coverage xml -o coverage.xml
         sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
-        pwd
-        ls -l
 
     - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@master
+      uses: SonarSource/sonarqube-scan-action@v4
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
