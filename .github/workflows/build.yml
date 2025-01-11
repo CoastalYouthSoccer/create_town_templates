@@ -45,14 +45,12 @@ jobs:
 
     - name: Setup Environment
       run: |
-        echo "${{ secrets.FAKE_GOOGLE_CREDENTIALS }}" >${{ github.workspace }}/google_creds.json
+        echo ${{ secrets.FAKE_GOOGLE_CREDENTIALS }} >${{ github.workspace }}/google_creds.json
 
     - name: Run tox
       env:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/google_creds.json
       run: |
-        cat ${{ github.WORKSPACE }}/google_creds.json
-        env
         tox -e py
 
     - name: Generate reports and fix code coverage paths for Sonarcloud
