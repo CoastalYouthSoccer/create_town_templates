@@ -47,6 +47,8 @@ jobs:
       env:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/phony_file.json
       run: |
+        cat ${{ github.workspace }}/phony_file.json
+        env
         tox -e py
 
     - name: Generate reports and fix code coverage paths for Sonarcloud
