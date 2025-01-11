@@ -163,4 +163,3 @@ cython_debug/
 *.json
 *.csv
 !send_file.csv
-!phony_file.json
