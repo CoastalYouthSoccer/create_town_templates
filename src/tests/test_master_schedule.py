@@ -16,6 +16,37 @@ COHASSET1 = "Cohasset-1"
 COHASSET2 = "Cohasset-2"
 HANOVER1 = "Hanover-1"
 HINGHAM1 = "Hingham-1"
+LOCATION = "Location"
+TIME = "10:00 PM"
+SCORE = "Pending"
+GIRLS_SCHEDULE = "Girls 7/8 D1"
+BOYS_SCHEDULE = "Boys 7/8 D1"
+
+MOCK_SHEET_VALUES = [
+    ["Event ID", "Date", "Time", "Location", "Visitor", "V Score",
+     "Home", "H Score", "Schedule"],
+    [123456, APRIL06, TIME, LOCATION, HANOVER1, SCORE, COHASSET1,
+     SCORE, GIRLS_SCHEDULE],
+    [123457, APRIL06, TIME, LOCATION, 'Hanover-2', SCORE, HINGHAM1,
+     SCORE, GIRLS_SCHEDULE],
+    [123458, APRIL13, TIME, LOCATION, CARVER3, SCORE, COHASSET2,
+     SCORE, GIRLS_SCHEDULE],
+    [123459, APRIL13, TIME, LOCATION, HINGHAM1, SCORE, CARVER1,
+     SCORE, GIRLS_SCHEDULE],
+    [123450, APRIL20, TIME, LOCATION, CARVER2, SCORE, COHASSET1,
+     SCORE, BOYS_SCHEDULE],
+    [123451, APRIL20, TIME, LOCATION, CARVER1, SCORE, CARVER3,
+     SCORE, BOYS_SCHEDULE],
+    [123452, APRIL06, TIME, LOCATION, CARVER1, SCORE, COHASSET1,
+     SCORE, BOYS_SCHEDULE],
+    [123453, APRIL06, TIME, LOCATION, CARVER2, SCORE, HINGHAM1,
+     SCORE, BOYS_SCHEDULE],
+    [123454, APRIL13, TIME, LOCATION, CARVER3, SCORE, COHASSET2,
+     SCORE, BOYS_SCHEDULE],
+    [123455, APRIL13, TIME, LOCATION, HINGHAM1, SCORE, CARVER1,
+     SCORE, BOYS_SCHEDULE]
+]
+
 
 class TestMasterSchedule(TestCase):
     def test_init(self):
@@ -31,27 +62,14 @@ class TestMasterSchedule(TestCase):
         # Mock the necessary objects
         mock_credentials = MagicMock()
         mock_auth_default.return_value = (mock_credentials, None)
-        mock_sheet_values = [
-            ['Division', 'Grade', 'Gender', 'Date', 'Home Team', 'Away Team'],
-            [DIVISION1, GRADE34, BOYS, APRIL06, HANOVER1, COHASSET1],
-            [DIVISION1, GRADE34, BOYS, APRIL06, 'Hanover-2', HINGHAM1],
-            [DIVISION1, GRADE34, BOYS, APRIL13, CARVER3, COHASSET2],
-            [DIVISION1, GRADE34, BOYS, APRIL13, HINGHAM1, CARVER1],
-            [DIVISION1, GRADE34, BOYS, APRIL20, CARVER2, COHASSET1],
-            [DIVISION1, GRADE34, BOYS, APRIL20, CARVER1, CARVER3],
-            [DIVISION1, GRADE34, GIRLS, APRIL06, CARVER1, COHASSET1],
-            [DIVISION1, GRADE34, GIRLS, APRIL06, CARVER2, HINGHAM1],
-            [DIVISION1, GRADE34, GIRLS, APRIL13, CARVER3, COHASSET2],
-            [DIVISION1, GRADE34, GIRLS, APRIL13, HINGHAM1, CARVER1],
-        ]
-        mock_execute_result = {'values': mock_sheet_values}
+        mock_execute_result = {'values': MOCK_SHEET_VALUES}
         mock_sheet_service = MagicMock()
         mock_sheet_service.values().get().execute.return_value = mock_execute_result
         mock_build.return_value.spreadsheets.return_value = mock_sheet_service
 
-        schedule = MasterSchedule('validid', 'A:G')
+        schedule = MasterSchedule('validid', 'A:I')
         schedule.read_schedule()
-        self.assertEqual(mock_sheet_values, schedule.schedule)
+        self.assertEqual(MOCK_SHEET_VALUES, schedule.schedule)
 
     @patch('helpers.helpers.auth.default')
     @patch('helpers.helpers.build')
@@ -59,34 +77,21 @@ class TestMasterSchedule(TestCase):
         # Mock the necessary objects
         mock_credentials = MagicMock()
         mock_auth_default.return_value = (mock_credentials, None)
-        mock_sheet_values = [
-            ['Division', 'Grade', 'Gender', 'Date', 'Home Team', 'Away Team'],
-            [DIVISION1, GRADE34, BOYS, APRIL06, HANOVER1, COHASSET1],
-            [DIVISION1, GRADE34, BOYS, APRIL06, 'Hanover-2', HINGHAM1],
-            [DIVISION1, GRADE34, BOYS, APRIL13, CARVER3, COHASSET2],
-            [DIVISION1, GRADE34, BOYS, APRIL13, HINGHAM1, CARVER1],
-            [DIVISION1, GRADE34, BOYS, APRIL20, CARVER2, COHASSET1],
-            [DIVISION1, GRADE34, BOYS, APRIL20, CARVER1, CARVER3],
-            [DIVISION1, GRADE34, GIRLS, APRIL06, CARVER1, COHASSET1],
-            [DIVISION1, GRADE34, GIRLS, APRIL06, CARVER2, HINGHAM1],
-            [DIVISION1, GRADE34, GIRLS, APRIL13, CARVER3, COHASSET2],
-            [DIVISION1, GRADE34, GIRLS, APRIL13, HINGHAM1, CARVER1]
-        ]
-        mock_execute_result = {'values': mock_sheet_values}
+        mock_execute_result = {'values': MOCK_SHEET_VALUES}
         mock_sheet_service = MagicMock()
         mock_sheet_service.values().get().execute.return_value = mock_execute_result
         mock_build.return_value.spreadsheets.return_value = mock_sheet_service
 
         expected_results = [
-            [DIVISION1, GRADE34, BOYS, APRIL13, CARVER3, COHASSET2],
-            [DIVISION1, GRADE34, BOYS, APRIL20, CARVER2, COHASSET1],
-            [DIVISION1, GRADE34, BOYS, APRIL20, CARVER1, CARVER3],
-            [DIVISION1, GRADE34, GIRLS, APRIL06, CARVER1, COHASSET1],
-            [DIVISION1, GRADE34, GIRLS, APRIL06, CARVER2, HINGHAM1],
-            [DIVISION1, GRADE34, GIRLS, APRIL13, CARVER3, COHASSET2]
+            [123459, APRIL13, TIME, LOCATION, HINGHAM1, SCORE, CARVER1,
+             SCORE, GIRLS_SCHEDULE],
+            [123451, APRIL20, TIME, LOCATION, CARVER1, SCORE, CARVER3,
+             SCORE, BOYS_SCHEDULE],
+            [123455, APRIL13, TIME, LOCATION, HINGHAM1, SCORE, CARVER1,
+             SCORE, BOYS_SCHEDULE]
         ]
 
-        schedule = MasterSchedule('validid', 'A:G')
+        schedule = MasterSchedule('validid', 'A:I')
         schedule.read_schedule()
         results = schedule.get_home_games('Carver')
         self.assertEqual(expected_results, results)
@@ -97,25 +102,13 @@ class TestMasterSchedule(TestCase):
         # Mock the necessary objects
         mock_credentials = MagicMock()
         mock_auth_default.return_value = (mock_credentials, None)
-        mock_sheet_values = [
-            ['Division', 'Grade', 'Gender', 'Date', 'Home Team', 'Away Team'],
-            [DIVISION1, GRADE34, BOYS, APRIL06, HANOVER1, COHASSET1],
-            [DIVISION1, GRADE34, BOYS, APRIL06, 'Hanover-2', HINGHAM1],
-            [DIVISION1, GRADE34, BOYS, APRIL13, CARVER3, COHASSET2],
-            [DIVISION1, GRADE34, BOYS, APRIL13, HINGHAM1, CARVER1],
-            [DIVISION1, GRADE34, BOYS, APRIL20, CARVER2, COHASSET1],
-            [DIVISION1, GRADE34, BOYS, APRIL20, CARVER1, CARVER3],
-            [DIVISION1, GRADE34, GIRLS, APRIL06, CARVER1, COHASSET1],
-            [DIVISION1, GRADE34, GIRLS, APRIL06, CARVER2, HINGHAM1],
-            [DIVISION1, GRADE34, GIRLS, APRIL13, CARVER3, COHASSET2],
-            [DIVISION1, GRADE34, GIRLS, APRIL13, HINGHAM1, CARVER1],
-        ]
+        mock_sheet_values = MOCK_SHEET_VALUES
         mock_execute_result = {'values': mock_sheet_values}
         mock_sheet_service = MagicMock()
         mock_sheet_service.values().get().execute.return_value = mock_execute_result
         mock_build.return_value.spreadsheets.return_value = mock_sheet_service
 
-        schedule = MasterSchedule('validid', 'A:G')
+        schedule = MasterSchedule('validid', 'A:I')
         schedule.read_schedule()
         file_name = schedule.write_schedule('carver.csv', 'Carver', 'Homer')
         self.assertEqual(file_name, 'carver.csv')
