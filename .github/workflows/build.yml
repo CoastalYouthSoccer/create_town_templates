@@ -45,11 +45,11 @@ jobs:
 
     - name: Setup Environment
       run: |
-        echo ${{ secrets.FAKE_GOOGLE_CREDENTIALS }} >google_creds.json
+        echo "${{ secrets.FAKE_GOOGLE_CREDENTIALS }}" >google_creds.json
 
     - name: Run tox
       env:
-        GOOGLE_APPLICATION_CREDENTIAL: ${{ github.WORKSPACE }}/google_creds.json
+        GOOGLE_APPLICATION_CREDENTIAL: ${{ github.workspace }}/google_creds.json
       run: |
         pwd
         echo ${{ github.WORKSPACE }}/google_creds.json
