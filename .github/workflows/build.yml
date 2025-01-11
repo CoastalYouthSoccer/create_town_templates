@@ -49,11 +49,9 @@ jobs:
 
     - name: Run tox
       env:
-        GOOGLE_APPLICATION_CREDENTIAL: ${{ github.workspace }}/google_creds.json
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/google_creds.json
       run: |
-        pwd
         echo ${{ github.WORKSPACE }}/google_creds.json
-        ls -l tests
         tox -e py
 
     - name: Generate reports and fix code coverage paths for Sonarcloud
