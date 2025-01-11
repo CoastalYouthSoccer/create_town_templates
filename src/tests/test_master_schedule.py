@@ -1,5 +1,6 @@
 from unittest import (TestCase, main as test_main)
 from unittest.mock import (patch, MagicMock)
+import pytest
 from classes.master_schedule import MasterSchedule
 
 GRADE34 = "Grade 3/4"
@@ -48,15 +49,17 @@ MOCK_SHEET_VALUES = [
 ]
 
 
+@patch('helpers.helpers.auth.default')
 class TestMasterSchedule(TestCase):
-    def test_init(self):
+    def test_init(self, mock_auth_default):
+        mock_credentials = MagicMock()
+        mock_auth_default.return_value = (mock_credentials, None)
         result = MasterSchedule('invalidid', 'A1:A1')
         self.assertEqual(result.id, 'invalidid')
         self.assertEqual(result.sheet_range, 'A1:A1')
         self.assertEqual(result.schedule, [])
         self.assertEqual(result.value_input_option, 'RAW')
 
-    @patch('helpers.helpers.auth.default')
     @patch('helpers.helpers.build')
     def test_read_schedule(self, mock_build, mock_auth_default):
         # Mock the necessary objects
@@ -71,7 +74,6 @@ class TestMasterSchedule(TestCase):
         schedule.read_schedule()
         self.assertEqual(MOCK_SHEET_VALUES, schedule.schedule)
 
-    @patch('helpers.helpers.auth.default')
     @patch('helpers.helpers.build')
     def test_get_home_games(self, mock_build, mock_auth_default):
         # Mock the necessary objects
@@ -96,7 +98,6 @@ class TestMasterSchedule(TestCase):
         results = schedule.get_home_games('Carver')
         self.assertEqual(expected_results, results)
 
-    @patch('helpers.helpers.auth.default')
     @patch('helpers.helpers.build')
     def test_write_schedule(self, mock_build, mock_auth_default):
         # Mock the necessary objects

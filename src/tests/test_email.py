@@ -61,12 +61,17 @@ class TestEmailClient(TestCase):
             CONST_EMAIL_SERVER, CONST_EMAIL_PORT,
             CONST_EMAIL_EMAIL, CONST_EMAIL_NAME,
             CONST_EMAIL_PASSWORD)
-
+        file_name = "missing.txt"
+        path_dir = path.join(path.dirname(path.realpath(__file__)),
+                             "templates/")
+        path_dir = path_dir.replace("/tests/", "/helpers/")
+        error_msg = f"ERROR:helpers.email:Missing File: '{file_name}' " \
+            f"not found in search path: '{path_dir}'"
         with self.assertLogs(level='DEBUG') as cm:
-            message = email_client.create_message(CONST_DATA_NO_MESSAGE, 'missing.txt')
+            message = email_client.create_message(CONST_DATA_NO_MESSAGE, file_name)
         self.assertEqual(cm.output, [
             CONST_START_MESSAGE,
-            "ERROR:helpers.email:Missing File: missing.txt",
+            error_msg,
             CONST_END_MESSAGE
         ])
         self.assertIsNone(message)
