@@ -102,9 +102,9 @@ def main():
         assignor_email = f"<{assignor}>{assignor_list[town]['email']}"
         _ = master_schedule.write_schedule(file_name, town,
                                             assignor)
-#        email_client.send_email(content, "email.html.jinja",
-#                                 assignor_email, file_name,
-#                                 f"{town}.csv", True)
+        email_client.send_email(content, "email.html.jinja",
+                                 assignor_email, file_name,
+                                 f"{town}.csv", True)
 
 
 if __name__ == "__main__":
