@@ -39,12 +39,12 @@ class MasterSchedule():
     def write_schedule(self, file_name, town, assignor) -> str:
         town = town.lower()
 
-        with open(file_name, 'w', newline='') as csv_file:
+        with open(file_name, "w", newline="") as csv_file:
             field_names = [
-                'Game ID', 'Date', 'Start Time', 'Venue', 'Sub-Venue',
-                'Home Team', 'Away Team', 'League', 'Age Group',
-                'Gender', 'Type', 'Pattern', 'Assignor Name',
-                'Notes (Visible to All)'
+                "Game ID", "Date", "Start Time", "Venue", "Sub-Venue",
+                "Home Team", "Away Team", "League", "Age Group",
+                "Gender", "Type", "Pattern", "Assignor Name",
+                "Assignor Notes"
             ]
             writer = csv.DictWriter(csv_file, fieldnames=field_names)
 
@@ -52,19 +52,19 @@ class MasterSchedule():
             for row in self.get_home_games(town):
                 game_info = split_grade_gender_division(row[8])
                 writer.writerow({
-                    'Game ID': row[0],
-                    'Date': row[1],
-                    'Start Time': '',
-                    'Venue': '',
-                    'Sub-Venue': '',
-                    'Age Group': game_info['grade'],
-                    'Gender': game_info['gender'],
-                    'Home Team': extract_team_name(row[6]),
-                    'Away Team': extract_team_name(row[4]),
-                    'League': town.title(),
-                    'Type': 'Coastal',
-                    'Pattern': 'Three Officials',
-                    'Assignor Name': assignor,
-                    'Notes (Visible to All)': game_info['division']
+                    "Game ID": row[0],
+                    "Date": row[1],
+                    "Start Time": "",
+                    "Venue": "",
+                    "Sub-Venue": "",
+                    "Age Group": game_info["grade"],
+                    "Gender": game_info["gender"],
+                    "Home Team": extract_team_name(row[6]),
+                    "Away Team": extract_team_name(row[4]),
+                    "League": town.title(),
+                    "Type": "Coastal",
+                    "Pattern": "Three Officials",
+                    "Assignor Name": assignor,
+                    "Assignor Notes": game_info["division"]
                 })
         return file_name
