@@ -43,13 +43,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r tests/requirements.txt
 
-    - name: Setup Environment
-      run: |
-        echo ${{ secrets.FAKE_GOOGLE_CREDENTIALS }} >${{ github.workspace }}/google_creds.json
-
     - name: Run tox
       env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/google_creds.json
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/phony_file.json
       run: |
         tox -e py
 
