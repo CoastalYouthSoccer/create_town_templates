@@ -50,6 +50,8 @@ jobs:
     - name: Generate reports and fix code coverage paths for Sonarcloud
       run: |
         mv ${{ github.workspace }}/coverage.xml .
+        ls -l
+        cat coverage.xml
         grep "<source>" coverage.xml 
         sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
         grep "<source>" coverage.xml
