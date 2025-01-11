@@ -46,13 +46,11 @@ jobs:
     - name: Run tox
       run: |
         tox -e py
-        ls -l
-        pwd
 
     - name: Generate reports and fix code coverage paths for Sonarcloud
       run: |
+        mv ${{ github.workspace }}/coverage.xml .
         ls -l
-        pwd
         sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
 
     - name: SonarCloud Scan
