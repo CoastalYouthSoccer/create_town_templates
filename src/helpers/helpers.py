@@ -17,7 +17,12 @@ def split_grade_and_gender(text):
         split_values = text.rsplit(' ', 1)
         
         if len(split_values) != 2:
+<<<<<<< HEAD
             raise ValueError("String does not have the expected format")
+=======
+            logger.warning(f"'{text}' does not have the expected format")
+            return None, None
+>>>>>>> origin/main
         
         grade = split_values[0]
         gender = split_values[1]
@@ -25,9 +30,51 @@ def split_grade_and_gender(text):
         return grade, gender
 
     except Exception as e:
+<<<<<<< HEAD
         print(f"An error occurred: {e} splitting {text}")
         return None, None
     
+=======
+        logger.warning(f"An error occurred: {e} splitting {text}")
+        return None, None
+
+def split_grade_gender_division(text) -> dict:
+    empty  = {
+        "gender": None,
+        "grade": None,
+        "division": None
+    }
+
+    split_values = text.rsplit(' ')
+        
+    if len(split_values) != 3:
+        logger.warning(f"'{text}' does not have the expected format")
+        return empty
+
+    if split_values[0].title() not in ('Boys', 'Girls'):
+        logger.warning(f"'{text}', Gender is Invalid")
+        return empty
+
+# What's the value(s) for high school
+    if split_values[1] not in ('1/2', '3/4', '5/6', '7/8'):
+        logger.warning(f"'{text}', Grade Level is Invalid")
+        return empty
+
+    return {
+        "gender": split_values[0].title(),
+        "grade": f"Grade {split_values[1]}",
+        "division": split_values[2]
+    }
+
+def extract_team_name(text) -> str:
+    split_values = text.rsplit(' ')
+    if len(split_values) < 1 or '-' not in split_values[0]:
+        logger.warning(f"'{text}' is an invalid team name")
+        return(text)
+    
+    return split_values[0].replace("-0", "-")
+
+>>>>>>> origin/main
 def load_sheet(sheet_id, sheet_range) -> list:
     credentials, _ = auth.default()
     sheet_values = []

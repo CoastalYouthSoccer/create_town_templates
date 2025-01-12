@@ -48,7 +48,9 @@ def get_arguments(args):
         logger.error(USAGE)
         return 88
 
-    if 'excel_format' in arguments and arguments['excel_format'] is not None:
+    if 'excel_format' in arguments and \
+        arguments['excel_format'] is not None \
+        and not isinstance(arguments['excel_format'], bool):
         try:
             arguments['excel_format'] = True \
                 if arguments['excel_format'].lower() in ('yes', 'true', 't', '1') \
