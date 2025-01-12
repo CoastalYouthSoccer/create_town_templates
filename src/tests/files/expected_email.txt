@@ -1,1 +1,315 @@
-<html>\n  <head>\n    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />\n    <style type="text/css">\n      ul.lst-kix_18jy6xumi74k-0 {\n        list-style-type: none;\n      }\n      ul.lst-kix_18jy6xumi74k-1 {\n        list-style-type: none;\n      }\n      .lst-kix_18jy6xumi74k-8 > li:before {\n        content: "\\0025cf   ";\n      }\n      ul.lst-kix_18jy6xumi74k-2 {\n        list-style-type: none;\n      }\n      ul.lst-kix_18jy6xumi74k-3 {\n        list-style-type: none;\n      }\n      .lst-kix_18jy6xumi74k-7 > li:before {\n        content: "\\0025cf   ";\n      }\n      ul.lst-kix_18jy6xumi74k-8 {\n        list-style-type: none;\n      }\n      .lst-kix_18jy6xumi74k-4 > li:before {\n        content: "\\0025cf   ";\n      }\n      .lst-kix_18jy6xumi74k-5 > li:before {\n        content: "\\0025cf   ";\n      }\n      ul.lst-kix_18jy6xumi74k-4 {\n        list-style-type: none;\n      }\n      ul.lst-kix_18jy6xumi74k-5 {\n        list-style-type: none;\n      }\n      .lst-kix_18jy6xumi74k-6 > li:before {\n        content: "\\0025cf   ";\n      }\n      li.li-bullet-0:before {\n        margin-left: -18pt;\n        white-space: nowrap;\n        display: inline-block;\n        min-width: 18pt;\n      }\n      ul.lst-kix_18jy6xumi74k-6 {\n        list-style-type: none;\n      }\n      ul.lst-kix_18jy6xumi74k-7 {\n        list-style-type: none;\n      }\n      .lst-kix_18jy6xumi74k-1 > li:before {\n        content: "\\0025cb   ";\n      }\n      .lst-kix_18jy6xumi74k-3 > li:before {\n        content: "\\0025cf   ";\n      }\n      .lst-kix_18jy6xumi74k-0 > li:before {\n        content: "\\0025cf   ";\n      }\n      .lst-kix_18jy6xumi74k-2 > li:before {\n        content: "\\0025cf   ";\n      }\n      ol {\n        margin: 0;\n        padding: 0;\n      }\n      table td,\n      table th {\n        padding: 0;\n      }\n      .c3 {\n        margin-left: 72pt;\n        padding-top: 0pt;\n        padding-left: 0pt;\n        padding-bottom: 0pt;\n        line-height: 1.15;\n        orphans: 2;\n        widows: 2;\n        text-align: left;\n      }\n      .c4 {\n        margin-left: 36pt;\n        padding-top: 0pt;\n        padding-left: 0pt;\n        padding-bottom: 0pt;\n        line-height: 1.15;\n        orphans: 2;\n        widows: 2;\n        text-align: left;\n      }\n      .c7 {\n        color: #666666;\n        font-weight: 400;\n        text-decoration: none;\n        vertical-align: baseline;\n        font-size: 12pt;\n        font-family: "Arial";\n        font-style: normal;\n      }\n      .c5 {\n        padding-top: 14pt;\n        padding-bottom: 4pt;\n        line-height: 1.15;\n        page-break-after: avoid;\n        orphans: 2;\n        widows: 2;\n        text-align: left;\n      }\n      .c1 {\n        color: #000000;\n        font-weight: 400;\n        text-decoration: none;\n        vertical-align: baseline;\n        font-size: 11pt;\n        font-family: "Arial";\n        font-style: normal;\n      }\n      .c6 {\n        padding-top: 0pt;\n        padding-bottom: 0pt;\n        line-height: 1.15;\n        orphans: 2;\n        widows: 2;\n        text-align: left;\n      }\n      .c8 {\n        text-decoration-skip-ink: none;\n        -webkit-text-decoration-skip: none;\n        color: #1155cc;\n        text-decoration: underline;\n      }\n      .c10 {\n        background-color: #ffffff;\n        max-width: 468pt;\n        padding: 72pt 72pt 72pt 72pt;\n      }\n      .c2 {\n        padding: 0;\n        margin: 0;\n      }\n      .c0 {\n        color: inherit;\n        text-decoration: inherit;\n      }\n      .c9 {\n        height: 11pt;\n      }\n      .title {\n        padding-top: 0pt;\n        color: #000000;\n        font-size: 26pt;\n        padding-bottom: 3pt;\n        font-family: "Arial";\n        line-height: 1.15;\n        page-break-after: avoid;\n        orphans: 2;\n        widows: 2;\n        text-align: left;\n      }\n      .subtitle {\n        padding-top: 0pt;\n        color: #666666;\n        font-size: 15pt;\n        padding-bottom: 16pt;\n        font-family: "Arial";\n        line-height: 1.15;\n        page-break-after: avoid;\n        orphans: 2;\n        widows: 2;\n        text-align: left;\n      }\n      li {\n        color: #000000;\n        font-size: 11pt;\n        font-family: "Arial";\n      }\n      p {\n        margin: 0;\n        color: #000000;\n        font-size: 11pt;\n        font-family: "Arial";\n      }\n      h1 {\n        padding-top: 20pt;\n        color: #000000;\n        font-size: 20pt;\n        padding-bottom: 6pt;\n        font-family: "Arial";\n        line-height: 1.15;\n        page-break-after: avoid;\n        orphans: 2;\n        widows: 2;\n        text-align: left;\n      }\n      h2 {\n        padding-top: 18pt;\n        color: #000000;\n        font-size: 16pt;\n        padding-bottom: 6pt;\n        font-family: "Arial";\n        line-height: 1.15;\n        page-break-after: avoid;\n        orphans: 2;\n        widows: 2;\n        text-align: left;\n      }\n      h3 {\n        padding-top: 16pt;\n        color: #434343;\n        font-size: 14pt;\n        padding-bottom: 4pt;\n        font-family: "Arial";\n        line-height: 1.15;\n        page-break-after: avoid;\n        orphans: 2;\n        widows: 2;\n        text-align: left;\n      }\n      h4 {\n        padding-top: 14pt;\n        color: #666666;\n        font-size: 12pt;\n        padding-bottom: 4pt;\n        font-family: "Arial";\n        line-height: 1.15;\n        page-break-after: avoid;\n        orphans: 2;\n        widows: 2;\n        text-align: left;\n      }\n      h5 {\n        padding-top: 12pt;\n        color: #666666;\n        font-size: 11pt;\n        padding-bottom: 4pt;\n        font-family: "Arial";\n        line-height: 1.15;\n        page-break-after: avoid;\n        orphans: 2;\n        widows: 2;\n        text-align: left;\n      }\n      h6 {\n        padding-top: 12pt;\n        color: #666666;\n        font-size: 11pt;\n        padding-bottom: 4pt;\n        font-family: "Arial";\n        line-height: 1.15;\n        page-break-after: avoid;\n        font-style: italic;\n        orphans: 2;\n        widows: 2;\n        text-align: left;\n      }\n    </style>\n  </head>\n  <body class="c10 doc-content">\n    <p class="c6"><span class="c1">Homer Simpson,</span></p>\n    <p class="c6 c9"><span class="c1"></span></p>\n    <p class="c6">\n      <span class="c1"\n        >Attached is Springfield&#39;s home schedule for the Fall 2024\n        season.</span\n      >\n    </p>\n    <h4 class="c5" id="h.dwmffmw0n627">\n      <span class="c7">Steps to Upload Schedule to Assignr</span>\n    </h4>\n    <ul class="c2 lst-kix_18jy6xumi74k-0 start">\n      <li class="c4 li-bullet-0">\n        <span class="c1"\n          >Update the file with game time, venue, and sub-venue\n          information.</span\n        >\n      </li>\n      <li class="c4 li-bullet-0"><span class="c1">Save the file</span></li>\n      <li class="c4 li-bullet-0">\n        <span>Go to </span\n        ><span class="c8"\n          ><a\n            class="c0"\n            href="https://www.google.com/url?q=https://cysl.assignr.com/import_files/new?import_type%3DG&amp;sa=D&amp;source=editors&amp;ust=1709006371791525&amp;usg=AOvVaw0Nhz6HtKgdShNmp7VoSuvG"\n            >Assignr&#39;s upload page</a\n          ></span\n        >\n      </li>\n      <li class="c4 li-bullet-0"><span class="c1">Upload the file</span></li>\n    </ul>\n    <ul class="c2 lst-kix_18jy6xumi74k-1 start">\n      <li class="c3 li-bullet-0">\n        <span class="c1"\n          >Click &quot;Choose File&quot; button, select the file</span\n        >\n      </li>\n      <li class="c3 li-bullet-0">\n        <span class="c1">Click &quot;Upload File&quot; button</span>\n      </li>\n    </ul>\n    <h4 class="c5" id="h.hv8mbvenppld">\n      <span class="c7">Additional Information</span>\n    </h4>\n    <p class="c6">\n      <span>More detail on uploading games may be found at </span\n      ><span class="c8"\n        ><a\n          class="c0"\n          href="https://www.google.com/url?q=https://support.assignr.com/en/articles/8526473-how-to-import-games-in-bulk&amp;sa=D&amp;source=editors&amp;ust=1709006371792067&amp;usg=AOvVaw36tHrJbhMDD2c9YXVXkQpl"\n          >Assignr&rsquo;s Site</a\n        ></span\n      ><span class="c1">. </span>\n    </p>\n  </body>\n</html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+    <style type="text/css">
+      ul.lst-kix_18jy6xumi74k-0 {
+        list-style-type: none;
+      }
+      ul.lst-kix_18jy6xumi74k-1 {
+        list-style-type: none;
+      }
+      .lst-kix_18jy6xumi74k-8 > li:before {
+        content: "\0025cf   ";
+      }
+      ul.lst-kix_18jy6xumi74k-2 {
+        list-style-type: none;
+      }
+      ul.lst-kix_18jy6xumi74k-3 {
+        list-style-type: none;
+      }
+      .lst-kix_18jy6xumi74k-7 > li:before {
+        content: "\0025cf   ";
+      }
+      ul.lst-kix_18jy6xumi74k-8 {
+        list-style-type: none;
+      }
+      .lst-kix_18jy6xumi74k-4 > li:before {
+        content: "\0025cf   ";
+      }
+      .lst-kix_18jy6xumi74k-5 > li:before {
+        content: "\0025cf   ";
+      }
+      ul.lst-kix_18jy6xumi74k-4 {
+        list-style-type: none;
+      }
+      ul.lst-kix_18jy6xumi74k-5 {
+        list-style-type: none;
+      }
+      .lst-kix_18jy6xumi74k-6 > li:before {
+        content: "\0025cf   ";
+      }
+      li.li-bullet-0:before {
+        margin-left: -18pt;
+        white-space: nowrap;
+        display: inline-block;
+        min-width: 18pt;
+      }
+      ul.lst-kix_18jy6xumi74k-6 {
+        list-style-type: none;
+      }
+      ul.lst-kix_18jy6xumi74k-7 {
+        list-style-type: none;
+      }
+      .lst-kix_18jy6xumi74k-1 > li:before {
+        content: "\0025cb   ";
+      }
+      .lst-kix_18jy6xumi74k-3 > li:before {
+        content: "\0025cf   ";
+      }
+      .lst-kix_18jy6xumi74k-0 > li:before {
+        content: "\0025cf   ";
+      }
+      .lst-kix_18jy6xumi74k-2 > li:before {
+        content: "\0025cf   ";
+      }
+      ol {
+        margin: 0;
+        padding: 0;
+      }
+      table td,
+      table th {
+        padding: 0;
+      }
+      .c3 {
+        margin-left: 72pt;
+        padding-top: 0pt;
+        padding-left: 0pt;
+        padding-bottom: 0pt;
+        line-height: 1.15;
+        orphans: 2;
+        widows: 2;
+        text-align: left;
+      }
+      .c4 {
+        margin-left: 36pt;
+        padding-top: 0pt;
+        padding-left: 0pt;
+        padding-bottom: 0pt;
+        line-height: 1.15;
+        orphans: 2;
+        widows: 2;
+        text-align: left;
+      }
+      .c7 {
+        color: #666666;
+        font-weight: 400;
+        text-decoration: none;
+        vertical-align: baseline;
+        font-size: 12pt;
+        font-family: "Arial";
+        font-style: normal;
+      }
+      .c5 {
+        padding-top: 14pt;
+        padding-bottom: 4pt;
+        line-height: 1.15;
+        page-break-after: avoid;
+        orphans: 2;
+        widows: 2;
+        text-align: left;
+      }
+      .c1 {
+        color: #000000;
+        font-weight: 400;
+        text-decoration: none;
+        vertical-align: baseline;
+        font-size: 11pt;
+        font-family: "Arial";
+        font-style: normal;
+      }
+      .c6 {
+        padding-top: 0pt;
+        padding-bottom: 0pt;
+        line-height: 1.15;
+        orphans: 2;
+        widows: 2;
+        text-align: left;
+      }
+      .c8 {
+        text-decoration-skip-ink: none;
+        -webkit-text-decoration-skip: none;
+        color: #1155cc;
+        text-decoration: underline;
+      }
+      .c10 {
+        background-color: #ffffff;
+        max-width: 468pt;
+        padding: 72pt 72pt 72pt 72pt;
+      }
+      .c2 {
+        padding: 0;
+        margin: 0;
+      }
+      .c0 {
+        color: inherit;
+        text-decoration: inherit;
+      }
+      .c9 {
+        height: 11pt;
+      }
+      .title {
+        padding-top: 0pt;
+        color: #000000;
+        font-size: 26pt;
+        padding-bottom: 3pt;
+        font-family: "Arial";
+        line-height: 1.15;
+        page-break-after: avoid;
+        orphans: 2;
+        widows: 2;
+        text-align: left;
+      }
+      .subtitle {
+        padding-top: 0pt;
+        color: #666666;
+        font-size: 15pt;
+        padding-bottom: 16pt;
+        font-family: "Arial";
+        line-height: 1.15;
+        page-break-after: avoid;
+        orphans: 2;
+        widows: 2;
+        text-align: left;
+      }
+      li {
+        color: #000000;
+        font-size: 11pt;
+        font-family: "Arial";
+      }
+      p {
+        margin: 0;
+        color: #000000;
+        font-size: 11pt;
+        font-family: "Arial";
+      }
+      h1 {
+        padding-top: 20pt;
+        color: #000000;
+        font-size: 20pt;
+        padding-bottom: 6pt;
+        font-family: "Arial";
+        line-height: 1.15;
+        page-break-after: avoid;
+        orphans: 2;
+        widows: 2;
+        text-align: left;
+      }
+      h2 {
+        padding-top: 18pt;
+        color: #000000;
+        font-size: 16pt;
+        padding-bottom: 6pt;
+        font-family: "Arial";
+        line-height: 1.15;
+        page-break-after: avoid;
+        orphans: 2;
+        widows: 2;
+        text-align: left;
+      }
+      h3 {
+        padding-top: 16pt;
+        color: #434343;
+        font-size: 14pt;
+        padding-bottom: 4pt;
+        font-family: "Arial";
+        line-height: 1.15;
+        page-break-after: avoid;
+        orphans: 2;
+        widows: 2;
+        text-align: left;
+      }
+      h4 {
+        padding-top: 14pt;
+        color: #666666;
+        font-size: 12pt;
+        padding-bottom: 4pt;
+        font-family: "Arial";
+        line-height: 1.15;
+        page-break-after: avoid;
+        orphans: 2;
+        widows: 2;
+        text-align: left;
+      }
+      h5 {
+        padding-top: 12pt;
+        color: #666666;
+        font-size: 11pt;
+        padding-bottom: 4pt;
+        font-family: "Arial";
+        line-height: 1.15;
+        page-break-after: avoid;
+        orphans: 2;
+        widows: 2;
+        text-align: left;
+      }
+      h6 {
+        padding-top: 12pt;
+        color: #666666;
+        font-size: 11pt;
+        padding-bottom: 4pt;
+        font-family: "Arial";
+        line-height: 1.15;
+        page-break-after: avoid;
+        font-style: italic;
+        orphans: 2;
+        widows: 2;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body class="c10 doc-content">
+    <p class="c6"><span class="c1">Homer Simpson,</span></p>
+    <p class="c6 c9"><span class="c1"></span></p>
+    <p class="c6">
+      <span class="c1">
+        Attached is Springfield&#39;s home schedule for the Spring 2025
+        season.
+      </span>
+    </p>
+    <h4 class="c5" id="h.dwmffmw0n627">
+      <span class="c7">Steps to Upload Schedule to Assignr</span>
+    </h4>
+    <ul class="c2 lst-kix_18jy6xumi74k-0 start">
+      <li class="c4 li-bullet-0">
+        <span class="c1">
+          Update the file with game time, venue, and sub-venue
+          information.
+        </span>
+      </li>
+      <li class="c4 li-bullet-0"><span class="c1">Save the file</span></li>
+      <li class="c4 li-bullet-0">
+        <span>Go to </span
+        ><span class="c8"
+          ><a
+            class="c0"
+            href="https://www.google.com/url?q=https://cysl.assignr.com/import_files/new?import_type%3DG&amp;sa=D&amp;source=editors&amp;ust=1709006371791525&amp;usg=AOvVaw0Nhz6HtKgdShNmp7VoSuvG"
+            >Assignr&#39;s upload page</a
+          ></span
+        >
+      </li>
+      <li class="c4 li-bullet-0"><span class="c1">Upload the file</span></li>
+    </ul>
+    <ul class="c2 lst-kix_18jy6xumi74k-1 start">
+      <li class="c3 li-bullet-0">
+        <span class="c1"
+          >Click &quot;Choose File&quot; button, select the file</span
+        >
+      </li>
+      <li class="c3 li-bullet-0">
+        <span class="c1">Click &quot;Upload File&quot; button</span>
+      </li>
+    </ul>
+    <h4 class="c5" id="h.hv8mbvenppld">
+      <span class="c7">Additional Information</span>
+    </h4>
+    <p class="c6">
+      <span>More detail on uploading games may be found at </span>
+        <span class="c8">
+          <a class="c0"
+          href="https://www.google.com/url?q=https://support.assignr.com/en/articles/8526473-how-to-import-games-in-bulk&amp;sa=D&amp;source=editors&amp;ust=1709006371792067&amp;usg=AOvVaw36tHrJbhMDD2c9YXVXkQpl"
+          >Assignr&rsquo;s Site</a>
+        </span>
+      <span class="c1">. </span>
+    </p>
+  </body>
+</html>

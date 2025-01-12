@@ -112,7 +112,7 @@ class TestEmailClient(TestCase):
 
     def test_create_message_html(self):
         with open('src/tests/files/expected_email.txt', 'r') as file:
-            expected_msg = file.readline()
+            expected_msg = file.read()
 
         email_client = EMailClient(
             CONST_EMAIL_SERVER, CONST_EMAIL_PORT,

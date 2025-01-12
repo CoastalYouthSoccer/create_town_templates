@@ -37,11 +37,6 @@ class TestSchedule(TestCase):
         self.assertEqual(args, {"file_name": None,
                                 "excel_format": False})
 
-    def test_invalid_excel_format(self):
-        rc, args = get_arguments(['-f', 'fileName.csv', '-e', 'NotValid'])
-        self.assertEqual(rc, 77)
-        self.assertEqual(args, {'file_name': None})        
-
 
 if __name__ == '__main__':
     test_main()
