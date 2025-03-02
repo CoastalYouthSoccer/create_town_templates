@@ -1,5 +1,6 @@
 from os import environ
 import logging
+import re
 import gspread
 from google import auth
 from googleapiclient.discovery import build
@@ -30,40 +31,45 @@ def split_grade_and_gender(text):
         return None, None
 
 def split_grade_gender_division(text) -> dict:
-    empty  = {
+    result  = {
         "gender": None,
         "grade": None,
         "division": None
     }
 
-    split_values = text.rsplit(' ')
-        
-    if len(split_values) != 3:
-        logger.warning(f"'{text}' does not have the expected format")
-        return empty
-
-    if split_values[0].title() not in ('Boys', 'Girls'):
-        logger.warning(f"'{text}', Gender is Invalid")
-        return empty
-
-# What's the value(s) for high school
-    if split_values[1] not in ('1/2', '3/4', '5/6', '7/8'):
-        logger.warning(f"'{text}', Grade Level is Invalid")
-        return empty
-
-    return {
-        "gender": split_values[0].title(),
-        "grade": f"Grade {split_values[1]}",
-        "division": split_values[2]
-    }
+    match = re.match(r'^(\w+)\s+([\d/]+)\s+(.+)$', text)
+    if match:
+        result["gender"] = match.group(1)  # First word (e.g., 'Boys')
+        result["grade"] = f"Grade {match.group(2)}"     # The '7/8' part
+        result["division"] = match.group(3)  # The rest ('Division 3' or 'D1')
+        if result["gender"].title() not in ('Boys', 'Girls'):
+            logger.warning(f"'{text}', Gender is Invalid")
+        if match.group(2) not in ('1/2', '3/4', '5/6', '7/8'):
+            logger.warning(f"'{text}', Grade Level is Invalid")
+        return result
+    logger.warning(f"'{text}' does not have the expected format")   
+    return result
 
 def extract_team_name(text) -> str:
-    split_values = text.rsplit(' ')
-    if len(split_values) < 1 or '-' not in split_values[0]:
-        logger.warning(f"'{text}' is an invalid team name")
-        return(text)
+    match = re.match(r'^([A-Za-z\s-]+)(\d{2})', text)
+    if match is None:
+        match = re.match(r'^([A-Za-z\s-]+)(\d{1})', text)
+
+    if match:
+        # 'Sacred Heart' has a space in it's causing the team name to be converted
+        # to 'Sacred-Heart'
+        if 'sacred' in match.group(1).strip().lower():
+            name = match.group(1).strip()
+        else:
+            name = match.group(1).strip().replace(" ", "-")  # Replace spaces with hyphens
+        number = str(int(match.group(2)))  # Convert '01' to '1'
+        if '-' in name:
+            return f"{name}{number}"
+        else:
+            return f"{name}-{number}"
     
-    return split_values[0].replace("-0", "-")
+    logger.warning(f"'{text}' is an invalid team name")
+    return(text)
 
 def load_sheet(sheet_id, sheet_range) -> list:
     credentials, _ = auth.default()
