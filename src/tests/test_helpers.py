@@ -195,6 +195,15 @@ class TestMisc(TestCase):
         result = split_grade_gender_division('Girls 7/8 D1')
         self.assertDictEqual(result, expected_result)
 
+    def test_split_grade_gender_division_valid_space(self):
+        expected_result = {
+            "gender": "Girls",
+            "grade": "Grade 7/8",
+            "division": "Division 1"
+        }
+        result = split_grade_gender_division('Girls 7/8 Division 1')
+        self.assertDictEqual(result, expected_result)
+
     def test_division_exception(self):
         with self.assertLogs(level='DEBUG') as cm:
             result = split_grade_gender_division('Girls 7/8')
@@ -203,20 +212,38 @@ class TestMisc(TestCase):
             "WARNING:root:'Girls 7/8' does not have the expected format"
         ]) 
 
+    def test_invalid_grade_level(self):
+        expected_result = {
+            "gender": "Girls",
+            "grade": "Grade 12/13",
+            "division": "D1"
+        }
+        with self.assertLogs(level='DEBUG') as cm:
+            result = split_grade_gender_division('Girls 12/13 D1')
+        self.assertEqual(result, expected_result)
+        self.assertEqual(cm.output, [
+            "WARNING:root:'Girls 12/13 D1', Grade Level is Invalid"
+        ]) 
+
     def test_gender_exception(self):
+        expected_result = {
+            "gender": "Girs",
+            "grade": "Grade 7/8",
+            "division": "D1"
+        }
         with self.assertLogs(level='DEBUG') as cm:
             result = split_grade_gender_division('Girs 7/8 D1')
-        self.assertEqual(result, EMPTY_GENDER_GRADE_DIVISION)
-        self.assertEqual(cm.output, [
+        self.assertEqual(result, expected_result)
+        self.assertEqual(cm.output,[
             "WARNING:root:'Girs 7/8 D1', Gender is Invalid"
-        ]) 
+            ]) 
 
     def test_grade_exception(self):
         with self.assertLogs(level='DEBUG') as cm:
             result = split_grade_gender_division('Girls H7/8 D1')
         self.assertEqual(result, EMPTY_GENDER_GRADE_DIVISION)
         self.assertEqual(cm.output, [
-            "WARNING:root:'Girls H7/8 D1', Grade Level is Invalid"
+            "WARNING:root:'Girls H7/8 D1' does not have the expected format"
         ]) 
 
     def test_extract_team_name_simple(self):
@@ -224,19 +251,35 @@ class TestMisc(TestCase):
         self.assertEqual(result, CONST_TEAM_NAME)
 
     def test_extract_team_name_no_leading(self):
-        result = extract_team_name('Team-1')
+        result = extract_team_name('Team-01')
         self.assertEqual(result, CONST_TEAM_NAME)
+
+    def test_extract_team_name_space_in_name_not_sacred_heart(self):
+        result = extract_team_name('Test Team-1')
+        self.assertEqual(result, 'Test-Team-1')
 
     def test_extract_team_name_complicated(self):
         result = extract_team_name('Team-01 (Homer/Marge/Bart/Lis')
         self.assertEqual(result, CONST_TEAM_NAME)
 
+    def test_extract_team_name_space_in_name_sacred_heart(self):
+        result = extract_team_name('Sacred Heart-01 (Homer/Marge/Bart/Lis')
+        self.assertEqual(result, 'Sacred Heart-1')
+
+    def test_extract_team_name_marshfield(self):
+        result = extract_team_name('Marshfield-4 (Miller)')
+        self.assertEqual(result, 'Marshfield-4')
+
     def test_extract_team_name_no_dash(self):
+        result = extract_team_name('Team01')
+        self.assertEqual(result, 'Team-1')
+
+    def test_extract_team_name_bye(self):
         with self.assertLogs(level='DEBUG') as cm:
-            result = extract_team_name('Team01')
-        self.assertEqual(result, 'Team01')
+            result = extract_team_name('Bye')
+        self.assertEqual(result, 'Bye')
         self.assertEqual(cm.output, [
-            "WARNING:root:'Team01' is an invalid team name"
+            "WARNING:root:'Bye' is an invalid team name"
         ]) 
 
     def test_extract_team_name_none(self):

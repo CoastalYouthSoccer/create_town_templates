@@ -110,11 +110,11 @@
   </head>
 
   <body class="c10 doc-content">
-    <p class="c6"><span class="c1">{{ name }},</span></p>
+    <p class="c6"><span class="c1">Homer Simpson,</span></p>
     <p class="c6 c9"><span class="c1"></span></p>
     <p class="c6">
       <span class="c1">
-        Attached is {{ town }}&#39;s home schedule for the Spring 2025
+        Attached is Springfield&#39;s home schedule for the Spring 2025
         season.
       </span>
     </p>
