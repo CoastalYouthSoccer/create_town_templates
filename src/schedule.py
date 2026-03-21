@@ -83,8 +83,7 @@ def main():
         email_vars['EMAIL_EMAIL'], email_vars['EMAIL_USERNAME'],
         email_vars['EMAIL_PASSWORD'])
 
-    master_schedule = MasterSchedule(spreadsheet_vars['SPREADSHEET_ID'],
-                                    spreadsheet_vars['SPREADSHEET_RANGE'])
+    master_schedule = MasterSchedule(spreadsheet_vars['SPREADSHEET_ID'])
     master_schedule.read_schedule(args['excel_format'])
 
     for town in assignor_list.keys():
@@ -105,7 +104,6 @@ def main():
         email_client.send_email(content, "email.html.jinja",
                                  assignor_email, file_name,
                                  f"{town}.csv", True)
-
 
 if __name__ == "__main__":
     main()

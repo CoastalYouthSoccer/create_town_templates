@@ -122,7 +122,6 @@ def get_spreadsheet_vars():
     rc = 0
     env_vars = {
         'SPREADSHEET_ID': None,
-        'SPREADSHEET_RANGE': None,
         'GOOGLE_APPLICATION_CREDENTIALS': None
     }
 
@@ -136,12 +135,6 @@ def get_spreadsheet_vars():
         env_vars['SPREADSHEET_ID'] = environ['SPREADSHEET_ID']
     except KeyError:
         logger.error('SPREADSHEET_ID environment variable is missing')
-        rc = 55
-
-    try:
-        env_vars['SPREADSHEET_RANGE'] = environ['SPREADSHEET_RANGE']
-    except KeyError:
-        logger.error('SPREADSHEET_RANGE environment variable is missing')
         rc = 55
 
     return rc, env_vars

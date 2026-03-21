@@ -1,22 +1,23 @@
 import logging
 import csv
-from google import auth
-from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
-from helpers.helpers import (load_sheet, load_excel_sheet, extract_team_name,
+import gspread
+from google.auth import default
+
+from helpers.helpers import (load_excel_sheet,
                             split_grade_gender_division)
 
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+creds, _ = default(scopes=[
+    "https://www.googleapis.com/auth/spreadsheets.readonly",
+    ])
 
 logger = logging.getLogger(__name__)
 
+client = gspread.authorize(creds)
+
 
 class MasterSchedule():
-    def __init__(self, id, sheet_range) -> None:
-        self.id = id
-        self.sheet_range = sheet_range
-        self.credentials, _ = auth.default()
-        self.value_input_option = "RAW"
+    def __init__(self, sheet_id) -> None:
+        self.work_book = client.open_by_key(sheet_id)
         self.schedule = []
 
 # Read the sheet row-by-row.
@@ -25,13 +26,15 @@ class MasterSchedule():
         if excel_format:
             self.schedule = load_excel_sheet(self.id, self.sheet_range)
         else:
-            self.schedule = load_sheet(self.id, self.sheet_range)
+            sheet = self.work_book.worksheet("Schedule")
+
+            self.schedule = sheet.get_all_records()
 
     def get_home_games(self, town) -> list:
         home_games = []
         town = town.lower()
         for row in self.schedule:
-            if town in row[6].lower():
+            if town in row['Home Team'].lower():
                 home_games.append(row)
 
         return home_games
@@ -50,21 +53,20 @@ class MasterSchedule():
 
             writer.writeheader()
             for row in self.get_home_games(town):
-                game_info = split_grade_gender_division(row[8])
                 writer.writerow({
-                    "Game ID": row[0],
-                    "Date": row[1],
+                    "Game ID": row["Game Id"],
+                    "Date": row["Date"],
                     "Start Time": "",
-                    "Venue": "",
-                    "Sub-Venue": "",
-                    "Age Group": game_info["grade"],
-                    "Gender": game_info["gender"],
-                    "Home Team": extract_team_name(row[6]),
-                    "Away Team": extract_team_name(row[4]),
+                    "Venue": row["Venue"],
+                    "Sub-Venue": row["Sub Venue"],
+                    "Age Group": row["Grade"],
+                    "Gender": row["Gender"],
+                    "Home Team": row["Home Team"],
+                    "Away Team": row["Away Team"],
                     "League": town.title(),
                     "Type": "Coastal",
                     "Pattern": "Three Officials",
                     "Assignor Name": assignor,
-                    "Assignor Notes": game_info["division"]
+                    "Assignor Notes": row["Division"]
                 })
         return file_name
